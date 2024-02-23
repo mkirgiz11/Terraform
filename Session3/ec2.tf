@@ -1,7 +1,14 @@
-resource "aws_instance" "web" {
-  ami           = "ami-0440d3b780d96b29d" #value after argument(ami)
-  instance_type = "t2.micro" #value after argument(instance_type)
-}
+# resource "aws_instance" "web" {
+#   ami           = "ami-0440d3b780d96b29d" #value after argument(ami)
+#   instance_type = "t2.micro" #value after argument(instance_type)
+#   vpc_security_group_ids = [ aws_security_group.main.id ] #attribute ID for security group
+#   tags = {
+#     Name        = "${var.env}-instance"     #dev-instance, qa-instance, stage-instance, prod-instance
+#     Environment = var.env          #Reference to input variable var.variable_name
+#     # Add more tags as needed
+#   }
+
+# }
 
 ### HashiCorp Language
 ##Terraform##
@@ -33,3 +40,7 @@ resource "aws_instance" "web" {
 # Initializes the working directory
 # Terraform Folder is the working directory
 # will read every .tf file in this directory
+
+#Terrafom Reference to Resource
+# firstlabel_secondlabel.attribute
+# References do not need "". Reference to Resource and and Reference to named values never use ""
