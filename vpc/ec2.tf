@@ -2,6 +2,7 @@
 resource "aws_instance" "web_instance" {
   ami           = "ami-0440d3b780d96b29d"
   instance_type = "t2.micro"
+  key_name = "Mithat@Desktop"
   subnet_id     = aws_subnet.public_subnets[0].id
 
   user_data = <<-EOF
