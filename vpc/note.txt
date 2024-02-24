@@ -1,0 +1,11 @@
+Create
+1. VPC
+2. 3 Pub subnets, 3 private subnets
+3. Internet Gateway
+4. Nat Gateway
+5. Public and Private route tables
+6. Route table associations
+7. Create EC2 instance on a public subnets
+    - Use user date to install apache
+    - create index.html to say "task is done"
+8. Share the public ip of your instance
