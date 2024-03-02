@@ -89,3 +89,4 @@ variable "lb_tg_protocol" {
     type = string
     description = "target group protocol web app"
     default = "HTTP"
+}
