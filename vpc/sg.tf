@@ -3,7 +3,7 @@ resource "aws_security_group" "websg" {
   description = "Allow ports and protocols for web instance"
 
   tags = {
-    Name = "web_sg1"
+    Name = "web_sg"
   }
 }
 

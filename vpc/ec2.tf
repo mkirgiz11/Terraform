@@ -4,6 +4,7 @@ resource "aws_instance" "web_instance" {
   instance_type = "t2.micro"
   key_name = "Mithat@Desktop"
   subnet_id     = aws_subnet.public_subnets[0].id
+  vpc_security_group_ids = [ aws_security_group.websg.id ]
 
   user_data = <<-EOF
               #!/bin/bash
