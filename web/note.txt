@@ -1,0 +1,20 @@
+Create the following:
+1. Application Load balancer
+    - Target Group
+    - Listener rule = 80
+    - Security Group = 80
+2. Auto Scaling Group
+    - Launch template = Amazon Linux Group
+        - User data = "App is Running"
+    - Security Group = 80, should be listening only from ALB
+    - Min 1 Desired 1 max = 3
+
+3. Attachment
+    - ALB to ASG attachment
+
+4. Route53 record
+    - A record pointing to your load balancer
+    - www.yourdomain.com, yourdomain.com
+
+Note: Create everything on default VPC
+
