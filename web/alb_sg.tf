@@ -1,5 +1,5 @@
 resource "aws_security_group" "main" {
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = data.aws_vpc.default.id  # Using the first default VPC
   name        = format("%s-security-group", var.env)
   description = var.lb_sg_description
 

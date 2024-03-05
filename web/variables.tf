@@ -90,3 +90,8 @@ variable "lb_tg_protocol" {
     description = "target group protocol web app"
     default = "HTTP"
 }
+
+variable "public_subnet_cidrs" {
+  default = ["172.31.128.0/24", "172.31.144.0/24"]
+}
+

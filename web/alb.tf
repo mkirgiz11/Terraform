@@ -3,15 +3,9 @@ resource "aws_lb" "main" {
   internal           = var.internal_feature
   load_balancer_type = var.lb_type
   security_groups    = [aws_security_group.main.id]
-  subnets            = data.aws_subnet_ids.default_subnets.ids
-
+  subnets            = aws_subnet.public_subnets[*].id 
+  
   enable_deletion_protection = true
-
-  access_logs {
-    bucket  = aws_s3_bucket.lb_logs.id
-    prefix  = "test-lb"
-    enabled = true
-  }
 
   tags = {
     Environment = var.env
@@ -20,6 +14,7 @@ resource "aws_lb" "main" {
 
 # Configuration for ALB listener to forward traffic to the target group
 resource "aws_lb_listener" "main" {
+  count             = length(var.lb_name)
   load_balancer_arn = aws_lb.main.arn
   port              = "80"
   protocol          = "HTTP"
