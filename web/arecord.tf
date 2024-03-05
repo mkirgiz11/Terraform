@@ -22,6 +22,30 @@ resource "aws_route53_record" "example_root" {
   }
 }
 
+resource "aws_acm_certificate" "example" {
+  domain_name       = "mytricloud.com"
+  validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_route53_record" "acm_validation" {
+  for_each = tomap({
+    for option in aws_acm_certificate.example.domain_validation_options : option.domain_name => {
+      name    = option.resource_record_name
+      type    = option.resource_record_type
+      value   = option.resource_record_value
+    }
+  })
+
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = each.value.name
+  type    = each.value.type
+  ttl     = 60
+  records = [each.value.value]
+}
 
 
 

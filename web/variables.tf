@@ -95,3 +95,9 @@ variable "public_subnet_cidrs" {
   default = ["172.31.128.0/24", "172.31.144.0/24"]
 }
 
+#SSL certificate ARN for HTTPS
+variable "ssl_certificate_arn" {
+  type        = string
+  description = "The ARN of the SSL certificate for HTTPS"
+  default     = "arn:aws:acm:us-east-1:712331462175:certificate/a8625959-1e6d-4fd6-88e2-a76d987f4fa9"  # Replace with your actual ARN
+}
