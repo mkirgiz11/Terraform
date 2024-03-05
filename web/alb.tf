@@ -12,7 +12,7 @@ resource "aws_lb" "main" {
   }
 }
 
-# Configuration for ALB listener to forward traffic to the target group
+# ALB listener to forward traffic to the target group
 resource "aws_lb_listener" "main" {
   count             = length(var.lb_name)
   load_balancer_arn = aws_lb.main.arn
