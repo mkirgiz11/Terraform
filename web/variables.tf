@@ -101,3 +101,38 @@ variable "ssl_certificate_arn" {
   description = "The ARN of the SSL certificate for HTTPS"
   default     = "arn:aws:acm:us-east-1:712331462175:certificate/a8625959-1e6d-4fd6-88e2-a76d987f4fa9"  # Replace with your actual ARN
 }
+
+variable "asg_tags" {
+  default = [
+    {
+      key                 = "env"
+      value               = "dev"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "team"
+      value               = "devops"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "app"
+      value               = "backend"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "project"
+      value               = "web"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "managed_by"
+      value               = "terraform"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "owner"
+      value               = "Mithat"
+      propagate_at_launch = true
+    },
+  ]
+}
