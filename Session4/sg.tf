@@ -1,9 +1,9 @@
 resource "aws_security_group" "main" {
-  name        = "web"
+  name        = "${var.env}-instance-sg"
   description = "Allow ports and protocols for web instance"
 
   tags = {
-    Name = "web_sg"
+    Name = "${var.env}-instance-sg"
   }
 }
 

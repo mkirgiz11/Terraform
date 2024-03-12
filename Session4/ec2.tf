@@ -1,17 +1,21 @@
 resource "aws_instance" "web" {
-  count = 3    # Creates same resource for multiple times  
-  ami           = "ami-0440d3b780d96b29d" #value after argument(ami)
-  instance_type = "t2.micro" #value after argument(instance_type)
-  vpc_security_group_ids = [ aws_security_group.main.id ] #attribute ID for security group
+  count = 1                                     # Creates same resource for multiple times  
+  ami           = data.aws_ami.amazon_linux_2.image_id      #value after argument(ami)
+  instance_type = "t2.micro"                    #value after argument(instance_type)
+  vpc_security_group_ids = [ aws_security_group.main.id ]  #attribute ID for security group
+  user_data = data.template_file.userdata.rendered         # Similar to cat command in linux --->output
   tags = {
-    Name        = "${var.env}-instance"     #dev-instance, qa-instance, stage-instance, prod-instance
-    Environment = var.env          #Reference to input variable var.variable_name
+    Name        = "${var.env}-instance"         #dev-instance, qa-instance, stage-instance, prod-instance
+    # Name2       = format("%s-instance, var.env")   // dev-instance
+    # Name3       = format("%d instance, 1")        // 1 instance
+    Environment = var.env                       #Reference to input variable var.variable_name
     # Add more tags as needed
     }
-    lifecycle {    # Meta-argument to create the new resource before destroying old. to prevent downtime
+    lifecycle {                                 # Meta-argument to create the new resource before destroying old. to prevent downtime
       create_before_destroy = true
     }
 }
+
 
 ### HashiCorp Language
 ##Terraform##
@@ -47,3 +51,15 @@ resource "aws_instance" "web" {
 #Terrafom Reference to Resource
 # firstlabel_secondlabel.attribute
 # References do not need "". Reference to Resource and and Reference to named values never use ""
+
+
+## Reference to data source
+# data "aws ami" "amazonlinux_2" = retrieve the data from ami
+# reference: data.first_label.second_label.attribute
+
+## FORMAT#
+# format("Hello, %s!", "Ander")
+# Hello, Ander!
+
+# %s = string
+# %d = number, integer
