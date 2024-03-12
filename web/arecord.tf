@@ -1,18 +1,18 @@
 resource "aws_route53_record" "example" {
-  zone_id = data.aws_route53_zone.main.zone_id  
-  name    = "www.${var.lb_name}.mytricloud.com"
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = "www.${var.acm_domain_name}"
   type    = "A"
 
   alias {
-    name                   = aws_lb.main.dns_name  
-    zone_id                = aws_lb.main.zone_id   
+    name                   = aws_lb.main.dns_name
+    zone_id                = aws_lb.main.zone_id
     evaluate_target_health = true
   }
 }
 
 resource "aws_route53_record" "example_root" {
   zone_id = data.aws_route53_zone.main.zone_id  
-  name    = "${var.lb_name}.mytricloud.com"
+  name    = var.acm_domain_name
   type    = "A"
 
   alias {
@@ -23,8 +23,9 @@ resource "aws_route53_record" "example_root" {
 }
 
 resource "aws_acm_certificate" "example" {
-  domain_name       = "mytricloud.com"
-  validation_method = "DNS"
+  domain_name              = var.acm_domain_name
+  subject_alternative_names = ["*.mytricloud.com"]
+  validation_method        = "DNS"
 
   lifecycle {
     create_before_destroy = true
@@ -50,3 +51,4 @@ resource "aws_route53_record" "acm_validation" {
 
 
 
+# naming & tagging

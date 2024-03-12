@@ -1,14 +1,14 @@
 resource "aws_autoscaling_group" "bar" {
-  availability_zones = ["us-east-1a", "us-east-1b"]
-  desired_capacity   = 1
-  max_size           = 3
-  min_size           = 1
+  availability_zones = var.availability_zones
+  desired_capacity   = var.desired_capacity
+  max_size           = var.max_size
+  min_size           = var.min_size
 
-  target_group_arns = ["${aws_lb_target_group.main.arn}"] 
+  target_group_arns = ["${aws_lb_target_group.main.arn}"]
 
   launch_template {
     id      = aws_launch_template.main.id
-    version = "$Latest"
+    version = "$Default"
   }
 
   dynamic "tag" {
@@ -17,6 +17,12 @@ resource "aws_autoscaling_group" "bar" {
       key                 = tag.value.key
       propagate_at_launch = tag.value.propagate_at_launch
       value               = tag.value.value
+    } 
+  }
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
     }
   }
 }

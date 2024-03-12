@@ -4,7 +4,7 @@ data "aws_vpc" "default" {
 
 
 data "aws_route53_zone" "main" {
-  name = "mytricloud.com"
+  name = var.acm_domain_name
 }
 
 

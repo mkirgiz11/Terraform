@@ -1,11 +1,13 @@
 resource "aws_launch_template" "main" {
-  name = "web-app-lt"
-  image_id = "ami-0440d3b780d96b29d"
-  instance_type = "t2.micro"
+  name = var.asg_ltname
+  image_id = var.ami_id
+  instance_type = var.instance_type
   network_interfaces {
     associate_public_ip_address = true
     security_groups = [aws_security_group.main.id]
   }
+#  default_version = "1"
+  update_default_version = true
   tag_specifications {
     resource_type = "instance"
 
@@ -14,5 +16,5 @@ resource "aws_launch_template" "main" {
     }
   }
 
-  user_data = base64encode("apache.sh")
+  user_data = filebase64("apache.sh")
 }

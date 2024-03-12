@@ -13,25 +13,25 @@ resource "aws_vpc_security_group_ingress_rule" "main" {
   security_group_id = aws_security_group.main.id
   cidr_ipv4         = element(var.cidr_blocks, count.index)
   from_port         = element(var.ports, count.index)
-  ip_protocol       = "tcp"
+  ip_protocol       = var.alb_sg_protocol
   to_port           = element(var.ports, count.index)
 }
 
 resource "aws_security_group_rule" "egress_rule_80" {
   security_group_id = aws_security_group.main.id
   type              = "egress"
-  from_port         = 80
-  to_port           = 80
-  protocol          = "tcp"
+  from_port         = var.port_80
+  to_port           = var.port_80
+  protocol          = var.alb_sg_protocol
   cidr_blocks       = [var.cidr_ipv4]
 }
 
 resource "aws_security_group_rule" "egress_rule_443" {
   security_group_id = aws_security_group.main.id
   type              = "egress"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
+  from_port         = var.port_443
+  to_port           = var.port_443
+  protocol          = var.alb_sg_protocol
   cidr_blocks       = [var.cidr_ipv4]
 }
 
