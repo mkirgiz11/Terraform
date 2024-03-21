@@ -14,7 +14,7 @@ variable "instance_type" {
 variable "main_ami" {
   type        = string
   description = "ami id for ec2 instance"
-  default     = "ami-0b8b44ec9a8f90422"
+  default     = "ami-080e1f13689e07408"
 }
 // Key name
 variable "key_name" {
@@ -81,5 +81,5 @@ variable "az_filter_name" {
 
 variable "availability_zone" {
   description = "Availability zone"
-  default     = "us-east-2a"
+  default     = "us-east-1a"
 }
